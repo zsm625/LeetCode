@@ -1,12 +1,16 @@
 package day_9_10;
 
+import java.util.Stack;
+
 public class DailyTemperatures {
 public static void main(String[] args) {
 	DailyTemperatures test = new DailyTemperatures();
 	int[] T= {89,62,70,58,47,47,46,76,100,70};
-	int[] result = test.dailyTemperatures(T);
+	int[] result = test.dailyTemperatures3(T);
+	//8154321100
+	//8154321100
 	for(int i=0;i<result.length;i++) {
-		System.out.println(result[i]);
+		System.out.print(result[i]);
 		
 	}
 }
@@ -41,6 +45,59 @@ public static void main(String[] args) {
 				}
 			}
 		}
+		return result;
+	}
+	
+	
+	/**
+	 * 第二种使用跳跃式对比的遍历，第一种是在中间会有多次重复的遍历，优化，可以在这个点出发，减少遍历次数
+	 * 
+	 *@author ZSM
+	 * @param T
+	 * @return
+	 */
+	public int[] dailyTemperatures2(int[] T) {
+		int[] result = new int[T.length];
+		result[T.length-1]=0;
+		for(int i=T.length-2;i>=0;i--) {
+			
+			for(int j=i+1;j<T.length;j+=result[j]) {
+				if(T[j]>T[i]) {
+				result[i]=j-i;	
+				break;
+				}else if(result[j]==0) {
+					result[i]=0;
+					break;
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	/**
+	 * 第三种使用栈 往栈里扔下标
+	 *@author ZSM
+	 * @param T
+	 * @return
+	 */
+	public int[] dailyTemperatures3(int[] T) {
+		int[] result = new int[T.length];
+		Stack<Integer> stack = new Stack<Integer>();
+		for(int i=0;i<T.length-1;i++) {
+			//89,62,70,58,47,47,46,76,100,70
+			stack.push(i);
+			for(int j=i+1;j<T.length;j++) {
+				if(T[i]<T[j]) {
+					result[i]=j-i;
+					stack.pop();
+					break;
+				}
+			}
+			
+		}
+		
 		return result;
 	}
 
