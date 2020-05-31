@@ -42,7 +42,7 @@ public class CuttingRope {
 	
 	public static void main(String[] args) {
 		CuttingRope rope = new CuttingRope();
-		int i = rope.cuttingRope(10);
+		int i = rope.cuttingRope(120);
 		System.out.println(i);
 	}
 }
