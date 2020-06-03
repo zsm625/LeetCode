@@ -19,6 +19,7 @@ public class CuttingRope {
 
 	/**
 	 * 动态规划
+	 * 当数据量不大时
 	 * 
 	 *@author ZSM
 	 * @param n
@@ -38,6 +39,23 @@ public class CuttingRope {
 			}
 		}
 		return dp[n];
+	}
+	
+	/**
+	 * 别人的解法总是那么的奇妙
+	 *@author ZSM
+	 * @param n
+	 * @return
+	 */
+	public int cuttingRope2(int n) { 
+		if(n<=3) return n-1;
+		long res = 1;
+		while(n>4) {
+			res*=3;
+			res = res%1000000007;
+			n-=3;
+		}
+		return (int)(res*n%1000000007);
 	}
 	
 	public static void main(String[] args) {
