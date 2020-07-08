@@ -45,7 +45,7 @@ public class ReverseWords {
 		}
 		StringBuffer sb = new StringBuffer();
 		s = s.trim();
-		int j = s.length()-1,i=j;;
+		int j = s.length()-1,i=j;
 		while(i>=0) {
 			while(i>=0 && s.charAt(i)!=' ') {
 				i--;
@@ -59,6 +59,8 @@ public class ReverseWords {
 
 		return sb.toString().trim();
 	}
+	
+	
 
 	public static void main(String[] args) {
 		ReverseWords words = new ReverseWords();
