@@ -17,7 +17,6 @@ public class MinArray {
 	 * @return
 	 */
 	public int minArray(int[] numbers) {
-		Arrays.sort(numbers, 0, 5);
 		int i=0,j=numbers.length-1;
 		while(i<j) {
 			int mid = (i+j)/2;
@@ -32,4 +31,5 @@ public class MinArray {
 		}
 		return numbers[i];
 	}
+	
 }
