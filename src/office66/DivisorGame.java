@@ -33,6 +33,34 @@ public class DivisorGame {
 			return false;
 		}
 		return N % 2 ==0;
-		
+	}
+	
+	/**
+	 * 动态规划
+	 * alice赢的前提是  N-x al输，所以转移方程是if(N%x==0 && dp[N-x]==false)
+	 *@author ZSM
+	 * @param N
+	 * @return
+	 */
+	public boolean divisorGame2(int N) {
+		if(N<=1) {
+			return false;
+		}
+		boolean[] dp = new boolean[N+1];
+		dp[2] = true;
+		for(int i=2;i<N+1;i++) {
+			for(int j=1;j<i;j++) {
+				if(i%j==0 && dp[i-j]==false) {
+					dp[i] = true;
+					break;
+				}
+			}
+		}
+		return dp[N];
+	}
+	public static void main(String[] args) {
+		DivisorGame game = new DivisorGame();
+		boolean b = game.divisorGame2(4);
+		System.out.println(b);
 	}
 }
