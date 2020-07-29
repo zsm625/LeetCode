@@ -27,14 +27,14 @@ public class LevelOrder {
 	 */
 	public List<List<Integer>> levelOrder(TreeNode root){
 		if(root==null) {
-			return null;
+			return new ArrayList<List<Integer>>();
 		}
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		TreeNode last = root,nlast=root;
 		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(root);
+		List<Integer> list = new ArrayList<>();
 		while(!queue.isEmpty()) {
-			List<Integer> list = new ArrayList<>();
 			TreeNode node = queue.poll();
 			list.add(node.val);
 			if(node.left!=null) {
@@ -47,7 +47,9 @@ public class LevelOrder {
 			}
 			if(node==last) {
 				last = nlast;
-				res.add(list);
+				List<Integer> reList = new ArrayList<>(list);
+				res.add(reList);
+				list.clear();
 			}
 		}
 		return res;
