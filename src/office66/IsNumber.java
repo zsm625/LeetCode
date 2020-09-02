@@ -36,7 +36,7 @@ public class IsNumber {
 				eSeen = true;
 				numSeen = false;
 			}else if(str[i]=='-'||str[i]=='+') {
-				if(i!=0 && str[i-1]!='e'&&str[i]!='E') {
+				if(i!=0 && (str[i-1]!='e')&&str[i-1]!='E') {
 					return false;
 				}
 			}else {
@@ -45,4 +45,11 @@ public class IsNumber {
 		}
 		return numSeen;
 	}
+	
+	public static void main(String[] args) {
+		IsNumber number = new IsNumber();
+		boolean b = number.isNumber("-1E-16");
+		System.out.println(b);
+	}
+	
 }
