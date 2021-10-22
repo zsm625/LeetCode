@@ -1,0 +1,39 @@
+class DP_01 {
+//压缩状态
+    public int tribonacci1(int n) {
+        if(n==0 || n==1){
+            return n;
+        }
+        if(n==2){
+            return 1;
+        }
+        
+        int a=0;
+        int b=1;
+        int c=1;
+        for(int i=3;i<=n;i++){
+            int sum = a+b+c;
+            a=b;
+            b=c;
+            c=sum;
+        }
+        return c;
+    }
+    //动态规划带备忘录
+    public int tribonacci2(int n) {
+        if(n==0 || n==1){
+            return n;
+        }
+        if(n==2){
+            return 1;
+        }
+        int[] dp = new int[n+1];
+        dp[0] = 0;
+        dp[1]=1;
+        dp[2] = 1;
+        for(int i=3;i<=n;i++){
+            dp[i] = dp[i-1]+dp[i-2]+dp[i-3];
+        }
+        return dp[n];
+    }
+}
