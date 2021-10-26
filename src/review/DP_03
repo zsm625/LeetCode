@@ -30,4 +30,21 @@ class RobI {
         }
         return dp[0];
     }
+    
+    public int rob3(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int length = nums.length;
+        if (length == 1) {
+            return nums[0];
+        }
+        int[] dpp = new int[length];
+        dpp[0] = nums[0];
+        dpp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < length; i++) {
+            dpp[i] = Math.max(dpp[i - 2] + nums[i], dpp[i - 1]);
+        }
+        return dpp[length - 1];
+    }
 }
