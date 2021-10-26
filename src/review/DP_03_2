@@ -1,0 +1,26 @@
+class RobII {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n==0){
+            return 0;
+        }
+        if(n==1){
+            return nums[0];
+        }
+        int res = Math.max(dp(nums,0,n-2),dp(nums,1,n-1));
+        return res;
+    }
+
+    public int dp(int[] nums,int start,int end){
+        int n = nums.length;
+        int dp_01 = 0;
+        int dp_02 = 0;
+        int dp = 0;
+        for(int i=end;i>=start;i--){
+            dp=Math.max(dp_01,nums[i]+dp_02);
+            dp_02 = dp_01;
+            dp_01 = dp;
+        }
+        return dp;
+    }
+}
