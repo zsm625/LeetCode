@@ -1,0 +1,22 @@
+class CanJump {
+    public boolean canJump(int[] nums) {
+        int n = nums.length;
+        if(n==0){
+            return true;
+        }
+        if(n==1){
+            return nums[0]>=0?true:false;
+        }
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        for(int i=1;i<n;i++){
+            if(i<=dp[i-1]){
+                dp[i] = Math.max(dp[i-1],i+nums[i]);
+                if(dp[i]>=n-1){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
