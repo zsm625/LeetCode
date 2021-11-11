@@ -1,0 +1,22 @@
+class MaxProduct {
+    public int maxProduct(int[] nums) {
+        int len = nums.length;
+        if(len==0){
+            return 0;
+        }
+        if(len==1){
+            return nums[0];
+        }
+        int max = nums[0];
+        int maxDp = nums[0];
+        int minDp = nums[0];
+        for(int i=1;i<len;i++){
+            int ad = maxDp;
+            int id = minDp;
+            maxDp = Math.max(ad*nums[i],Math.max(nums[i],id*nums[i]));
+            minDp = Math.min(id*nums[i],Math.min(nums[i],ad*nums[i]));
+            max = maxDp>max?maxDp:max;
+        }
+        return max;
+    }
+}
