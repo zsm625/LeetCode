@@ -18,8 +18,19 @@ class MaxDepth {
     int res = 0;
     public int maxDepth(TreeNode root) {
         //1、解题思路：可以通过遍历一棵树得到答案
-        traverse(root);
-        return res;
+//         traverse(root);
+//         return res;
+        
+        //2、通过分解问题得到答案 得到树的最大深大，那就是左右子树最大高度+1
+        if(root == null){
+            return 0;
+        }
+        int ans = 0;
+
+        int leftMax= maxDepth(root.left);
+        int rightMaxt = maxDepth(root.right);
+        ans = leftMax>rightMaxt?leftMax:rightMaxt;
+        return ans+1;
     }
 
     public void traverse(TreeNode root){
