@@ -42,4 +42,28 @@ class Solution {
                            inorder,index+1,inEnd);
         return root;
     }
+    
+    /**
+    通过中序遍历和后序遍历构建一颗二叉树
+后序遍历：最后一个节点是根节点
+ */
+    public TreeNode build(int[] inorder,int inStart,int inEnd,int[] postorder,int postStart,int postEnd){
+        if(inStart>inEnd){
+            return null;
+        }
+        int rootVal = postorder[postEnd];
+        int index = 0;
+        for(int i=inStart;i<=inEnd;i++){
+            if(inorder[i] == rootVal){
+                index = i;
+                break;
+            }
+        }
+
+        TreeNode root = new TreeNode(rootVal);
+        int leftSize = index-inStart;
+        root.left = build(inorder,inStart,index-1,postorder,postStart,postStart+leftSize-1);
+        root.right = build(inorder,index+1,inEnd,postorder,postStart+leftSize,postEnd-1);
+        return root;
+    }
 }
