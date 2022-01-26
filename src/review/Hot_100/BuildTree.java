@@ -66,4 +66,31 @@ class Solution {
         root.right = build(inorder,index+1,inEnd,postorder,postStart+leftSize,postEnd-1);
         return root;
     }
+    /*
+    通过前序遍历和后序遍历构建一棵树
+    */
+    public TreeNode build(int[] preorder,int preStart,int preEnd,int[] postorder,int postStart,int postEnd){
+        if(preStart>preEnd){
+            return null;
+        }
+        if(preStart==preEnd){
+            return new TreeNode(preorder[preStart]);
+        }
+        int rootVal = preorder[preStart];
+        int leftVal = preorder[preStart+1];
+        int index = 0;
+        for(int i=postStart;i<=postEnd;i++){
+            if(postorder[i]==leftVal){
+                index = i;
+                break;
+            }
+        }
+        
+        int leftSize = index-postStart+1;
+        TreeNode root = new TreeNode(rootVal);
+        root.left = build(preorder,preStart+1,preStart+leftSize,postorder,postStart,index);
+        root.right = build(preorder,preStart+leftSize+1,preEnd,postorder,index+1,postEnd);
+        return root;
+        
+    }
 }
