@@ -20,7 +20,7 @@ class FindDuplicateSubtrees {
         traverse(root);
         return sameNode;
     }
-    
+    //序列化一棵树
     public String traverse(TreeNode root){
         if(root==null){
             return "#";
@@ -31,6 +31,7 @@ class FindDuplicateSubtrees {
         String subTree = left+","+right+","+root.val;
         if(set.containsKey(subTree)){
             Integer count = set.get(subTree);
+            //判断是否有相同的树，有就添加到结果集
             if(count ==1){
                 sameNode.add(root);
             }
