@@ -1,0 +1,33 @@
+class MoveZeroes {
+    public void moveZeroes(int[] nums) {
+        int fast = 0,slow=0;
+        while(fast<nums.length){
+            if(nums[fast]!=0){
+                int temp = nums[slow];
+                nums[slow]=nums[fast];
+                nums[fast]=temp;
+                slow++;
+            }
+            fast++;
+        }
+    }
+    
+    public void moveZeroes1(int[] nums) {
+        int p = moveElement(nums,0);
+        for(;p<nums.length;p++){
+            nums[p] = 0;
+        }
+    }
+
+    public int moveElement(int[] nums,int val){
+        int fast = 0,slow=0;
+        while(fast<nums.length){
+            if(nums[fast]!=val){
+                nums[slow]=nums[fast];
+                slow++;
+            }
+            fast++;
+        }
+        return slow;
+    }
+}
