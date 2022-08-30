@@ -1,0 +1,29 @@
+class SearchRange {
+    public int[] searchRange(int[] nums, int target) {
+        int[] res = new int[]{-1,-1};
+        int leftIndex = banarySeach(nums,target,true);
+        int rightIndex = banarySeach(nums,target,false)-1;
+        if(leftIndex<=rightIndex && nums[rightIndex]==target){
+            return new int[]{leftIndex,rightIndex};
+        }
+        return res;
+    }
+
+/**
+二分搜索法 
+ */
+    public int banarySeach(int[] nums,int target,boolean lower){
+        int left = 0,right=nums.length-1;
+        int res = nums.length;
+        while(left<=right){
+            int mid = (right-left)/2+left;
+            if(nums[mid]>target || (lower&&nums[mid]>=target)){
+                right = mid-1;
+                res =  mid;
+            }else{
+                left=mid+1;
+            }
+        }
+        return res;
+    }
+}
