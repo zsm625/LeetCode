@@ -1,0 +1,57 @@
+class MinWindow {
+    public String minWindow(String s, String t) {
+        //滑动窗口的思路
+        //1、在字符串S中使用双指针中左右指针技巧，初始化left=right=0，把索引左闭右开区间[left,right)]称为一个窗口
+        //2、不断增加right指针扩大窗口，直到窗口中的字符串符合要求（包含所有字符串t）
+        //3、移动left指针直到窗口中不再满足字符串要求，每次移动left指针都需要更新一轮结果
+        //重复2、3直到字符串s的尽头
+
+        //定义计数器 window和need
+        Map<Character,Integer> window = new HashMap<>();//窗口中含有字符数
+        Map<Character,Integer> need = new HashMap<>();//满足要求的字符串数
+        char[] tchars = t.toCharArray();
+        for(char tc:tchars){
+            window.put(tc,0);
+            if(need.containsKey(tc)){
+                need.put(tc,need.get(tc)+1);
+            }else{
+                need.put(tc,1);
+            }
+        }
+        int left =0,right = 0;
+        int needStrs = 0;
+        int start = 0;
+        int end = 0;
+        int len = Integer.MAX_VALUE;
+        //窗口扩大
+        while(right<s.length()){
+            char cur = s.charAt(right);
+            if(need.containsKey(cur)){
+                window.put(cur,window.get(cur)+1);
+                if(window.get(cur).equals(need.get(cur))){
+                    needStrs++;
+                }
+            }
+            //窗口中符合字符串要求
+            while(needStrs==need.size()){
+                char curLeft = s.charAt(left);
+                if(right-left<len){
+                    start = left;
+                    end = right;
+                    len = right-left;
+                }
+                //窗口缩小
+                if(need.containsKey(curLeft)){
+                    if(window.get(curLeft).equals(need.get(curLeft))){
+                        needStrs--;
+                    }
+                    window.put(curLeft,window.get(curLeft)-1);
+                    
+                }
+                left++;
+            }
+            right++;
+        }
+        return len==Integer.MAX_VALUE?"":s.substring(start,end+1);
+    }
+}
