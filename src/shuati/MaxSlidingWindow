@@ -1,0 +1,42 @@
+class MaxSlidingWindow {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        MonoticQueue windows = new MonoticQueue();
+        List<Integer> res = new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            if(i<k-1){
+                windows.push(nums[i]);
+            }else{
+                windows.push(nums[i]);
+                res.add(windows.max());
+                windows.pop(nums[i-k+1]);
+            }
+        }
+
+        int[] resArr = new int[res.size()];
+        for(int i=0;i<res.size();i++){
+            resArr[i] = res.get(i);
+        }
+        return resArr;
+    }
+}
+
+//构造一个单调队列，保证单调队列保持递增的顺序
+class MonoticQueue{
+    LinkedList<Integer> queue = new LinkedList<>();
+    public void push(int n){
+        while(!queue.isEmpty() && queue.getLast()<n){
+            queue.pollLast();
+        }
+        queue.addLast(n);
+    }
+
+    public int max(){
+        return queue.getFirst();
+    }
+
+    public void pop(int n){
+        if(n==queue.getFirst()){
+            queue.pollFirst();
+        }
+    }
+}
