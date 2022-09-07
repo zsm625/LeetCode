@@ -1,0 +1,60 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class DeleteNode {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        //删除二叉搜索树中的节点
+        //先找再删，再重组
+        //对于要删的节点存在四种情况 
+        //1、只有右子树，删除之后将右子树顶上，
+        //2、只有左子树，删除后将左子树顶上，
+        //3、无左右子树，保持不动，
+        //4、左右子树都存在，需要拿到左子树最大的节点或者右子树最小的节点顶上
+        if(root == null){
+            return null;
+        }
+        if(root.val == key){
+            if(root.left==null){
+                return root.right;
+            }
+            if(root.right==null){
+                return root.left;
+            }
+            //左右子树都存在 
+            //获取右子树最小节点
+            TreeNode minNode = getMin(root.right);
+            //s删除右子树最小节点
+            root.right = deleteNode(root.right,minNode.val);
+            minNode.left = root.left;
+            minNode.right = root.right;
+            root = minNode;
+        }else if(root.val<key){
+            root.right = deleteNode(root.right,key);
+        }else if(root.val>key){
+            root.left = deleteNode(root.left,key);
+        }
+        return root;
+    }
+
+    public  TreeNode getMin(TreeNode root){
+        if(root == null){
+            return null;
+        }
+        while(root.left!=null){
+            root = root.left;
+        }
+        return root;
+    }
+}
