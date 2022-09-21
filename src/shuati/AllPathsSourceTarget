@@ -1,0 +1,23 @@
+class AllPathsSourceTarget {
+    private List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        LinkedList<Integer> path = new LinkedList<>();
+        traverse(graph,0,path);
+        return res;
+    }
+
+    private void traverse(int[][] graph,int s,LinkedList<Integer> path){
+        //图的遍历
+        path.addLast(s); //添加访问节点
+        int n = graph.length;
+        if(s==n-1){
+            //到达顶点
+            res.add(new LinkedList(path));
+        }
+        for(int v:graph[s]){
+            //遍历该节点相邻节点
+            traverse(graph,v,path);
+        }
+        path.removeLast();
+    }
+}
