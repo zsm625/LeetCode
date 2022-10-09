@@ -1,0 +1,56 @@
+class CanPartitionKSubsets {
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int len = nums.length;
+        if(k>len){
+            return false;
+        }
+        int sum = 0;
+        for(int i=0;i<len;i++){
+            sum+=nums[i];
+        }
+        if(sum%k!=0){
+            return false;
+        }
+        int used = 0;
+        int target = sum/k;
+        return backtrace(nums,k,0,0,target,used);
+        
+    }
+    Map<Integer,Boolean> cache = new HashMap<>();
+
+    public boolean backtrace(int[] nums,int k,int buket,int start,int target,int used){
+        //桶装满了
+        if(k==0){
+            return true;
+        }
+        if(buket == target){
+            //装下个桶
+            boolean res = backtrace(nums,k-1,0,0,target,used);
+            cache.put(used,res);
+            return res;
+        }
+        if(cache.containsKey(used)){
+            return cache.get(used);
+        }
+        for(int i=start;i<nums.length;i++){
+            if(((used>>i) & 1)==1){
+                //判断第i位是否为1
+                continue;
+            }
+            if(nums[i]+buket>target){
+                continue;
+            }
+            used |=1<<i;
+            buket += nums[i];
+            //穷举下一个数字是否需要装进当前桶
+            if(backtrace(nums,k,buket,i+1,target,used)){
+                return true;
+            }
+            //撤销选择  使用异或运算将第i位变为0
+            used ^=1<<i;
+            buket-=nums[i];
+
+        }
+        return false;
+    }
+}
