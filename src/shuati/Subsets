@@ -1,0 +1,19 @@
+class Subsets {
+    LinkedList<Integer> trace = new LinkedList<>();
+    List<List<Integer>> res = new LinkedList<>();
+    public List<List<Integer>> subsets(int[] nums) {
+        reverse(nums,0);
+        return res;
+    }
+
+//回溯算法核心函数
+    public void reverse(int[] nums,int start ){
+        res.add(new LinkedList<>(trace));
+
+        for(int i=start;i<nums.length;i++){
+            trace.addLast(nums[i]);
+            reverse(nums,i+1);
+            trace.removeLast();
+        }
+    }
+}
