@@ -25,4 +25,24 @@ class CanCompleteCircuit {
         }
         return -1;
     }
+    
+    public int canCompleteCircuit2(int[] gas, int[] cost) {
+        int gasLen = gas.length;
+        // 2 总油量>=总耗油量 不符合条件的直接pass 
+        int totalGas = 0;
+        int curGas = 0;
+        int res = 0;
+        for(int i=0;i<gasLen;i++){
+            totalGas += gas[i]-cost[i];
+            curGas += gas[i]-cost[i];
+            if(curGas<0){
+                res = (i+1)%gasLen;
+                curGas = 0;
+            }
+        }
+        if(totalGas<0){
+            return -1;
+        }
+        return res;
+    }
 }
