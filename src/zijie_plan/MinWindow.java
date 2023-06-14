@@ -31,6 +31,58 @@ class MinWindow {
             }
         }
         return result.equals(s+t)?"":result;
+    }
+  public String minWindow2(String s, String t) {
+        int sLen = s.length();
+        int tLen = t.length();
+        //滑动窗口 
+        Map<Character,Integer> need = new HashMap<>();
+        Map<Character,Integer> window = new HashMap<>();
+        for(int i=0;i<tLen;i++){
+            //窗口中应出现的字符
+            window.put(t.charAt(i),0);
+            //需要覆盖的字符
+            if(need.containsKey(t.charAt(i))){
+                need.put(t.charAt(i),need.get(t.charAt(i))+1);
+            }else{
+                need.put(t.charAt(i),1);
+            }
+        }
+        int left = 0;
+        int right = 0;
+        int needStrLen = 0;
+        int start = 0;
+        int end = 0;
+        int len = Integer.MAX_VALUE;
+        while(right<sLen){
+             char cur = s.charAt(right);
+             if(need.containsKey(cur)){
+                 window.put(cur,window.get(cur)+1);
+                 if(window.get(cur).equals(need.get(cur))){
+                    needStrLen++;
+                 }
+             }
+             while(needStrLen==need.size()){
+                 if(right-left<len){
+                     start = left;
+                     end = right;
+                     len = end-start;
+                 }
+                 //收缩窗口
+                 char leftCur = s.charAt(left);
+                 if(need.containsKey(leftCur)){
+                     if(window.get(leftCur).equals(need.get(leftCur))){
+                         needStrLen--;
+                     }
+                     window.put(leftCur,window.get(leftCur)-1);
+                 }
+                 left++;
+             }
+             right++;
+        }
+
+        return len==Integer.MAX_VALUE?"":s.substring(start,end+1);
 
     }
+  
 }
