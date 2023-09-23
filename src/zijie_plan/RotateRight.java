@@ -47,4 +47,31 @@ class Solution {
         return ans.next;
 
     }
+    public ListNode rotateRight2(ListNode head, int k) {
+        if(head==null){
+            return null;
+        }
+        int len = 0;
+        ListNode curTemp = head;
+        while(curTemp!=null){
+            curTemp = curTemp.next;
+            len++;
+        }
+        ListNode cur = head;
+        // 计算需要往前走多少步
+        int step = len-(k%len);
+        //将链表先连成环，再根据需要走到step步处断开环
+        while(cur!=null && cur.next!=null){
+            cur = cur.next;
+        }
+        cur.next = head;
+        ListNode ans = cur;
+        for(int i=0;i<step;i++){
+            cur = cur.next;
+        }
+        ans = cur.next;
+        cur.next = null;
+        return ans;
+
+    }
 }
